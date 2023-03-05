@@ -1,3 +1,4 @@
 {
-  "cmake.sourceDirectory": "d:\\workspace\\protoype_range_v3\\src"
+  "cmake.sourceDirectory": "d:\\workspace\\protoype_range_v3\\src",
+  "sarif-viewer.connectToGithubCodeScanning": "off"
 }

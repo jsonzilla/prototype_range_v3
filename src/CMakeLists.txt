@@ -6,6 +6,8 @@ get_filename_component(CURRENT_SOURCE_DIR ../ ABSOLUTE)
 
 include("${CURRENT_SOURCE_DIR}/tests/gtest.cmake")
 
+# include ranges_v3
+include_directories("${CURRENT_SOURCE_DIR}/ranges/include")
 
 file (GLOB_RECURSE headers "${CURRENT_SOURCE_DIR}/src/*.h")
 file (GLOB_RECURSE sources "${CURRENT_SOURCE_DIR}/src/*.cpp")
@@ -34,15 +36,16 @@ find_package (Threads) # REQUIRED for Google Test
 target_link_libraries(tests gtest ${CMAKE_THREAD_LIBS_INIT})
 
 if (MSVC)
-    target_compile_options(tests PRIVATE /std:c++14)
+    target_compile_options(ranges_v3 PRIVATE /std:c++17 /permissive-)
+    target_compile_options(tests PRIVATE /std:c++17 /permissive-)
 
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
 
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else()
-    target_compile_options(ranges_v3 PRIVATE -std=c++14 -g -fpermissive)
-    target_compile_options(tests PRIVATE -std=c++14 -g -fpermissive)
+    target_compile_options(ranges_v3 PRIVATE -std=c++17 -g -fpermissive)
+    target_compile_options(tests PRIVATE -std=c++17 -g -fpermissive)
 endif()
 
 
